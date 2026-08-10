@@ -1,9 +1,21 @@
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(config =>
+{
+    var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+    var xmlFile = $"{assemblyName}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        config.IncludeXmlComments(xmlPath);
+    }
+
+});
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

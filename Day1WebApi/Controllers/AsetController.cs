@@ -41,6 +41,11 @@ namespace Day1WebApi.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Get semua aset dengan filter opsional berdasarkan nama, kategori, dan tahun perolehan.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [ProducesResponseType(typeof(List<Aset>), StatusCodes.Status200OK)]
         [HttpGet]
         public IActionResult GetSemuaAset([FromQuery]AsetQueryParam query)

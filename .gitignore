@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Day1WebApi.slnx
+/Day1WebApi/bin/Debug/net10.0
+/Day1WebApi/obj

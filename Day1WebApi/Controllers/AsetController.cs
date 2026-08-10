@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 
 namespace Day1WebApi.Controllers
@@ -7,6 +8,7 @@ namespace Day1WebApi.Controllers
     [ApiController]
     public class AsetController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private static List<Aset> Assets = new List<Aset>()
         {
             new Aset
@@ -32,6 +34,13 @@ namespace Day1WebApi.Controllers
             }
         };
 
+        public AsetController(
+            IMapper mapper
+            )
+        {
+            _mapper = mapper;
+        }
+
         [HttpGet]
         public IActionResult GetSemuaAset()
         {
@@ -54,13 +63,7 @@ namespace Day1WebApi.Controllers
             {
                 return BadRequest(ModelState.Select(x => x.Value.Errors));
             }
-            var aset = new Aset
-            {
-                Nama = asetParam.Nama,
-                Kategori = asetParam.Kategori,
-                Nilai = asetParam.Nilai,
-                TanggalPerolehan = asetParam.TanggalPerolehan
-            };
+            var aset = _mapper.Map<Aset>(asetParam);
             Assets.Add(aset);
             return Ok(aset);
         }

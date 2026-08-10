@@ -41,13 +41,14 @@ namespace Day1WebApi.Controllers
             _mapper = mapper;
         }
 
+        [ProducesResponseType(typeof(List<Aset>), StatusCodes.Status200OK)]
         [HttpGet]
         public IActionResult GetSemuaAset()
         {
             return Ok(Assets);
         }
 
-        
+        [ProducesResponseType(typeof(Aset), StatusCodes.Status200OK)]
         [HttpGet("{id}")]
         public IActionResult GetAsetById(Guid id)
         {
@@ -56,6 +57,7 @@ namespace Day1WebApi.Controllers
             return Ok(aset);
         }
 
+        [ProducesResponseType(typeof(Aset), StatusCodes.Status200OK)]
         [HttpPost]
         public IActionResult CreateAset(AsetDto asetParam)
         {
@@ -68,6 +70,7 @@ namespace Day1WebApi.Controllers
             return Ok(aset);
         }
 
+        [ProducesResponseType(typeof(Aset), StatusCodes.Status200OK)]
         [HttpPut("{id}")]
         public IActionResult UpdateAset(Guid id, AsetDto asetParam)
         {
@@ -83,6 +86,16 @@ namespace Day1WebApi.Controllers
             aset.TanggalPerolehan = asetParam.TanggalPerolehan;
 
             return Ok(aset);
+        }
+
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAset(Guid id)
+        {
+            var aset = Assets.FirstOrDefault(x => x.Id == id);
+            if (aset == null) return NotFound();
+            Assets.Remove(aset);
+            return Ok("Aset berhasil dihapus");
         }
     }
 }

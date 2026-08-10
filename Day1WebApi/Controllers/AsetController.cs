@@ -67,6 +67,23 @@ namespace Day1WebApi.Controllers
             Assets.Add(aset);
             return Ok(aset);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateAset(Guid id, AsetDto asetParam)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.Select(x => x.Value.Errors));
+            }
+            var aset = Assets.FirstOrDefault(x => x.Id == id);
+            if (aset == null) return NotFound();
+            aset.Kategori = asetParam.Kategori;
+            aset.Nama = asetParam.Nama;
+            aset.Nilai = asetParam.Nilai;
+            aset.TanggalPerolehan = asetParam.TanggalPerolehan;
+
+            return Ok(aset);
+        }
     }
 }
 //GET: localhost:5198/api/aset

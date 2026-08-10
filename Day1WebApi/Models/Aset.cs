@@ -6,5 +6,7 @@
         public DateOnly TanggalPerolehan { get; set; }
         public string Kategori { get; set; } = string.Empty;
         public int Nilai { get; set; }
+
+        public string? FotoPath { get; set; }
     }
 }

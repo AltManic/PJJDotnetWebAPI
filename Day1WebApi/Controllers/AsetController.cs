@@ -70,6 +70,16 @@ namespace Day1WebApi.Controllers
             return Ok(aset);
         }
 
+        [HttpGet("{id}/foto")]
+        public async Task<IActionResult> DownloadFotoAset(Guid id)
+        {
+            var aset = Assets.FirstOrDefault(a => a.Id == id);
+            if (aset == null) return NotFound();
+            if (aset.FotoPath == null) return BadRequest("Foto belum diupload");
+            var fileStream = new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "FotoAset", aset.FotoPath), FileMode.Open);
+            return File(fileStream, "image/jpeg", aset.FotoPath);
+        }
+
         [ProducesResponseType(typeof(Aset), StatusCodes.Status200OK)]
         [HttpPost]
         public IActionResult CreateAset([FromBody] AsetDto asetParam)
@@ -80,6 +90,22 @@ namespace Day1WebApi.Controllers
             }
             var aset = _mapper.Map<Aset>(asetParam);
             Assets.Add(aset);
+            return Ok(aset);
+        }
+
+        [HttpPost("{id}/upload-foto")]
+        public async Task<IActionResult> UploadFotoAset([FromForm] AsetFotoParam fotoParam, Guid id)
+        {
+            var aset = Assets.FirstOrDefault(x => x.Id == id);
+            if (aset == null) return NotFound();
+            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "FotoAset");
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            using var fileStream = new FileStream($"{directoryPath}/{fotoParam.Foto.FileName}", FileMode.Create);
+            await fotoParam.Foto.CopyToAsync(fileStream);
+            aset.FotoPath = fotoParam.Foto.FileName;
             return Ok(aset);
         }
 

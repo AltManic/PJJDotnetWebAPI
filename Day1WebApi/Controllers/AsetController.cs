@@ -43,9 +43,22 @@ namespace Day1WebApi.Controllers
 
         [ProducesResponseType(typeof(List<Aset>), StatusCodes.Status200OK)]
         [HttpGet]
-        public IActionResult GetSemuaAset()
+        public IActionResult GetSemuaAset([FromQuery]AsetQueryParam query)
         {
-            return Ok(Assets);
+            var resultAsets = Assets.ToList();
+            if(query.Nama != null)
+            {
+                resultAsets = resultAsets.Where(x => x.Nama.ToLower().Contains(query.Nama.ToLower())).ToList();
+            }
+            if(query.Kategori != null)
+            {
+                resultAsets = resultAsets.Where(x => x.Kategori.ToLower().Contains(query.Kategori.ToLower())).ToList();
+            }
+            if(query.Tahun > 0)
+            {
+                resultAsets = resultAsets.Where(x => x.TanggalPerolehan.Year == query.Tahun).ToList();
+            }
+            return Ok(resultAsets);
         }
 
         [ProducesResponseType(typeof(Aset), StatusCodes.Status200OK)]
@@ -59,7 +72,7 @@ namespace Day1WebApi.Controllers
 
         [ProducesResponseType(typeof(Aset), StatusCodes.Status200OK)]
         [HttpPost]
-        public IActionResult CreateAset(AsetDto asetParam)
+        public IActionResult CreateAset([FromBody] AsetDto asetParam)
         {
             if (!ModelState.IsValid)
             {
@@ -72,7 +85,7 @@ namespace Day1WebApi.Controllers
 
         [ProducesResponseType(typeof(Aset), StatusCodes.Status200OK)]
         [HttpPut("{id}")]
-        public IActionResult UpdateAset(Guid id, AsetDto asetParam)
+        public IActionResult UpdateAset(Guid id, [FromBody] AsetDto asetParam)
         {
             if (!ModelState.IsValid)
             {

@@ -2,6 +2,7 @@
 {
     public class PegawaiDto
     {
+        public Guid Id { get; set; }
         public string Nama { get; set; }
         public string NIP { get; set; }
         public string Jabatan { get; set; }

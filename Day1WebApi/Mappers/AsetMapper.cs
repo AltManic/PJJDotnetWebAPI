@@ -6,8 +6,7 @@ namespace Day1WebApi.Mappers
     {
         public AsetMapper()
         {
-            CreateMap<AsetDto, Aset>();
-            CreateMap<Aset, AsetDto>();
+          
         }
     }
 }

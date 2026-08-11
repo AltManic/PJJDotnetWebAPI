@@ -10,13 +10,13 @@ namespace Day1WebApi.Data
 
         public DbSet<Aset> Aset => Set<Aset>();
 
-        public void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Aset>(e =>
             {
-                e.ToTable("BMN");
+                e.ToTable("aset");
                 e.Property(x => x.Nama).IsRequired().HasMaxLength(120);
-                e.Property(x => x.Nilai).IsRequired().HasColumnName("Harga");
+                e.Property(x => x.Nilai).IsRequired().HasColumnName("nilai");
             });
             base.OnModelCreating(modelBuilder);
         }

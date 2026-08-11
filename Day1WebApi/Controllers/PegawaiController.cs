@@ -53,7 +53,7 @@ namespace Day1WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdatePegawai(Guid id, PegawaiDto pegawaiParam)
         {
-            var pegawai = _pegawaiService.UpdatePegawai(id, pegawaiParam;
+            var pegawai = _pegawaiService.UpdatePegawai(id, pegawaiParam);
           
             var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
             return Ok(pegawaiDtoResult);

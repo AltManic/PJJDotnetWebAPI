@@ -1,5 +1,6 @@
 using Day1WebApi.Data;
 using Day1WebApi.Middlewares;
+using Day1WebApi.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ builder.Services.AddSwaggerGen(config =>
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<KategoriService>();
 
 var app = builder.Build();
 

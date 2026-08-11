@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Day1WebApi.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,9 +34,11 @@ namespace Day1WebApi.Controllers
                 }
         };
 
+        [SampleFilter]
         [HttpGet]
         public IActionResult GetAll([FromQuery] PegawaiQueryParam pegawaiQueryParam)
         {
+            Console.WriteLine("GetAll method called");
             var tempListPegawai = Pegawai.ToList();
             if(pegawaiQueryParam.Nama != null)
             {
@@ -49,8 +52,9 @@ namespace Day1WebApi.Controllers
             var pegawaiDtos = _mapper.Map<List<PegawaiDto>>(tempListPegawai);
             return Ok(pegawaiDtos);
         }
-
+        
         [HttpGet("{id}")]
+        
         public IActionResult GetById(Guid id)
         {
             var pegawai = Pegawai.FirstOrDefault(x => x.Id == id);

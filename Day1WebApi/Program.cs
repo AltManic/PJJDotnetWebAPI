@@ -1,3 +1,4 @@
+using Day1WebApi.Middlewares;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,7 @@ app.MapGet("/health", () => Results.Ok("Healthy"));
 
 
 app.UseAuthorization();
+app.UseMiddleware<SampleMiddleware>();
 
 app.MapControllers();
 

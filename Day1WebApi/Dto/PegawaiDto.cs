@@ -8,5 +8,6 @@
         public string Jabatan { get; set; }
         public long Gaji { get; set; }
         public DateOnly TanggalMasuk { get; set; }
+        public string TanggalMasukFormatIndo { get { return TanggalMasuk.ToIndonesiaFormat(); } }
     }
 }

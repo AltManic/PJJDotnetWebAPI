@@ -16,7 +16,6 @@ namespace Day1WebApi.Data
             modelBuilder.Entity<Aset>(e =>
             {
                 e.ToTable("aset");
-                e.Property(x => x.TanggalPerolehan).HasColumnType("KEMENKEU");
                 e.Property(x => x.Nama).IsRequired().HasMaxLength(120);
                 e.Property(x => x.Nilai).IsRequired().HasColumnName("nilai");
             });

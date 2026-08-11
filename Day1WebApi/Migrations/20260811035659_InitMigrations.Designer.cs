@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Day1WebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260811025441_CreateAsetTable")]
-    partial class CreateAsetTable
+    [Migration("20260811035659_InitMigrations")]
+    partial class InitMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,8 +32,7 @@ namespace Day1WebApi.Migrations
                     b.Property<string>("FotoPath")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Kategori")
-                        .IsRequired()
+                    b.Property<Guid>("KategoriId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nama")
@@ -53,7 +52,46 @@ namespace Day1WebApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("KategoriId");
+
                     b.ToTable("aset", (string)null);
+                });
+
+            modelBuilder.Entity("Day1WebApi.Models.Kategori", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nama")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kategori");
+                });
+
+            modelBuilder.Entity("Day1WebApi.Models.Aset", b =>
+                {
+                    b.HasOne("Day1WebApi.Models.Kategori", "Kategori")
+                        .WithMany("Aset")
+                        .HasForeignKey("KategoriId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kategori");
+                });
+
+            modelBuilder.Entity("Day1WebApi.Models.Kategori", b =>
+                {
+                    b.Navigation("Aset");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,6 +7,6 @@
         AsetDto CreateAset(AsetParamDto asetParam);
         AsetDto UpdateAset(Guid id, AsetParamDto asetDtoParam);
         void DeleteAset(Guid id);
-        Dictionary<string, List<AsetDto>> GetAsetGroupingByKategori();
+        List<AsetGroupByKategori> GetAsetGroupingByKategori();
     }
 }

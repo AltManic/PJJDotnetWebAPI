@@ -54,16 +54,22 @@ namespace Day1WebApi.Services
             return Tuple.Create(_mapper.Map<List<AsetDto>>(result), count);
         }
 
-        public Dictionary<string, List<AsetDto>> GetAsetGroupingByKategori()
+        public List<AsetGroupByKategori> GetAsetGroupingByKategori()
         {
-            var aset = _dbContext.Aset.Include(x => x.Kategori).GroupBy(x => x.Kategori.Nama).ToDictionary(x => x.Key, x => _mapper.Map<List<AsetDto>>(x.ToList()));
+            var aset = _dbContext.Aset.Include(x => x.Kategori).GroupBy(x => x.Kategori.Nama).Select(x => new AsetGroupByKategori()
+            {
+                KategoriName = x.Key,
+                Assets = _mapper.Map<List<AsetDto>>(x.ToList()),
+                TotalNilaiAset = x.Sum(y => y.Nilai)
+            }).ToList();
+
             return aset;
         }
 
         public async Task<AsetDto?> GetById(Guid id)
         {
             var aset =  await _dbContext.Aset
-                .Include(x => x.Kategori)
+                .Include(x => x.Kategori)                
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (aset == null) return null;
             return _mapper.Map<AsetDto>(aset);

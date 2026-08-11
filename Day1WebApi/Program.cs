@@ -1,4 +1,5 @@
 using Day1WebApi.Data;
+using Day1WebApi.Interfaces;
 using Day1WebApi.Middlewares;
 using Day1WebApi.Services;
 using System.Reflection;
@@ -26,6 +27,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<KategoriService>();
+builder.Services.AddScoped<IAsetService, AsetService>();
 
 var app = builder.Build();
 

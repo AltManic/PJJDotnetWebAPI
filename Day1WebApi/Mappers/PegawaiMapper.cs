@@ -11,6 +11,8 @@ namespace Day1WebApi.Mappers
 
             CreateMap<AsetDto, Aset>();
             CreateMap<Aset, AsetDto>();
+
+            CreateMap<AsetParamDto, Aset>();
         }
     }
 }

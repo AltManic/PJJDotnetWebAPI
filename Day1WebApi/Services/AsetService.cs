@@ -40,9 +40,24 @@ namespace Day1WebApi.Services
             _dbContext.SaveChanges();
         }
 
-        public List<AsetDto> GetAllAset()
+        public Tuple<List<AsetDto>, int> GetAllAset(PaginationQueryParam queryParam)
         {
-            return _mapper.Map<List<AsetDto>>(_dbContext.Aset.ToList());
+            var asetQuery = _dbContext.Aset
+                .Include(x => x.Kategori).AsQueryable();              ;
+            if(queryParam.KategoriName != null)
+            {
+                asetQuery = asetQuery.Where(x => x.Kategori.Nama.Contains(queryParam.KategoriName));
+            }
+            asetQuery= asetQuery.Where(x => x.Nilai > 100000);
+            int count = asetQuery.Count();
+            var result = asetQuery.OrderBy(x => x.Nama).Skip(queryParam.Offset).Take(queryParam.Limit).ToList();
+            return Tuple.Create(_mapper.Map<List<AsetDto>>(result), count);
+        }
+
+        public Dictionary<string, List<AsetDto>> GetAsetGroupingByKategori()
+        {
+            var aset = _dbContext.Aset.Include(x => x.Kategori).GroupBy(x => x.Kategori.Nama).ToDictionary(x => x.Key, x => _mapper.Map<List<AsetDto>>(x.ToList()));
+            return aset;
         }
 
         public async Task<AsetDto?> GetById(Guid id)

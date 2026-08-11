@@ -16,10 +16,23 @@ namespace Day1WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllAset()
+        public IActionResult GetAllAset([FromQuery] PaginationQueryParam queryParam)
         {
-            return Ok(_asetService.GetAllAset());
+            var result = _asetService.GetAllAset(queryParam);
+            return Ok(new
+            {
+                Data = result.Item1,
+                Total = result.Item2
+            });
         }
+        //localhost:5000/api/aset/grouping-by-kategori
+        [HttpGet("grouping-by-kategori")]
+        public IActionResult GetAsetGroupingByKategori()
+        {
+            var result = _asetService.GetAsetGroupingByKategori();
+            return Ok(result);
+        }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
@@ -27,6 +40,8 @@ namespace Day1WebApi.Controllers
             var aset = await _asetService.GetById(id);
             return aset == null ? NotFound() : Ok(aset);
         }
+
+       
 
         [HttpPost]
         public IActionResult CreateAset(AsetParamDto asetParam)

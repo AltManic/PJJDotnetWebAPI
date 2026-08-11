@@ -28,6 +28,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<KategoriService>();
 builder.Services.AddScoped<IAsetService, AsetService>();
+builder.Services.AddScoped<PegawaiService>();
 
 var app = builder.Build();
 

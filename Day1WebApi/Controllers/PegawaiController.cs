@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Day1WebApi.Filters;
+using Day1WebApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,45 +11,19 @@ namespace Day1WebApi.Controllers
     public class PegawaiController : ControllerBase
     {
         private readonly IMapper _mapper;
-        public PegawaiController(IMapper mapper)
+        private readonly PegawaiService _pegawaiService;
+        public PegawaiController(IMapper mapper, PegawaiService pegawaiService)
         {
             _mapper = mapper;
+            _pegawaiService = pegawaiService;
         }
-        private static List<Pegawai> Pegawai = new List<Pegawai>()
-        {
-            new Pegawai()
-                {
-                    Nama = "Budi",
-                    NIP = "1234567890",
-                    Jabatan = "Manager",
-                    Gaji = 10000000,
-                    TanggalMasuk = new DateOnly(2020, 1, 1)
-                },
-                new Pegawai()
-                {
-                    Nama = "Siti",
-                    NIP = "0987654321",
-                    Jabatan = "Staff",
-                    Gaji = 5000000,
-                    TanggalMasuk = new DateOnly(2021, 1, 1)
-                }
-        };
+
 
         [SampleFilter]
         [HttpGet]
         public IActionResult GetAll([FromQuery] PegawaiQueryParam pegawaiQueryParam)
         {
-            Console.WriteLine("GetAll method called");
-            var tempListPegawai = Pegawai.ToList();
-            if(pegawaiQueryParam.Nama != null)
-            {
-                tempListPegawai = tempListPegawai.Where(x => x.Nama.ToLower().Contains(pegawaiQueryParam.Nama.ToLower())).ToList();
-            }
-
-            if(pegawaiQueryParam.Nip != null)
-            {
-                tempListPegawai = tempListPegawai.Where(x => x.NIP.ToLower().Contains(pegawaiQueryParam.Nip.ToLower())).ToList();
-            }
+            var tempListPegawai = _pegawaiService.GetAllPegawai();
             var pegawaiDtos = _mapper.Map<List<PegawaiDto>>(tempListPegawai);
             return Ok(pegawaiDtos);
         }
@@ -57,7 +32,7 @@ namespace Day1WebApi.Controllers
         
         public IActionResult GetById(Guid id)
         {
-            var pegawai = Pegawai.FirstOrDefault(x => x.Id == id);
+            var pegawai = _pegawaiService.GetById(id);
             if (pegawai == null)
             {
                 return NotFound();
@@ -69,8 +44,8 @@ namespace Day1WebApi.Controllers
         [HttpPost]
         public IActionResult CreatePegawai(PegawaiDto pegawaiParam)
         {
-            var pegawai = _mapper.Map<Pegawai>(pegawaiParam);
-            Pegawai.Add(pegawai);
+            var pegawai = _pegawaiService.CreatePegawai(pegawaiParam);
+            
             var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
             return Ok(pegawaiDtoResult);
         }
@@ -78,17 +53,8 @@ namespace Day1WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdatePegawai(Guid id, PegawaiDto pegawaiParam)
         {
-            var pegawai = Pegawai.FirstOrDefault(x => x.Id == id);
-            if (pegawai == null)
-            {
-                return NotFound();
-            }
-            pegawai.Nama = pegawaiParam.Nama;
-            pegawai.NIP = pegawaiParam.NIP;
-            pegawai.Jabatan = pegawaiParam.Jabatan;
-            pegawai.Gaji = pegawaiParam.Gaji;
-            pegawai.TanggalMasuk = pegawaiParam.TanggalMasuk;
-
+            var pegawai = _pegawaiService.UpdatePegawai(id, pegawaiParam;
+          
             var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
             return Ok(pegawaiDtoResult);
         }
@@ -96,13 +62,8 @@ namespace Day1WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeletePegawai(Guid id)
         {
-            var pegawai = Pegawai.FirstOrDefault(x => x.Id == id);
-            if(pegawai == null)
-            {
-                return NotFound();
-            }
-            Pegawai.Remove(pegawai);
-            return Ok($"Hapus pegawai dengan nama {pegawai.Nama} berhasil");
+            _pegawaiService.DeletePegawai(id);
+            return Ok($"Hapus pegawai dengan nama berhasil");
         }
     }
 }

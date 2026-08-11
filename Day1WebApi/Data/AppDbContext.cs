@@ -10,6 +10,7 @@ namespace Day1WebApi.Data
 
         public DbSet<Aset> Aset => Set<Aset>();
         public DbSet<Kategori> Kategori => Set<Kategori>();
+        public DbSet<Pegawai> Pegawai => Set<Pegawai>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

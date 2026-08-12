@@ -52,8 +52,18 @@ namespace Day1WebApi.Services
             pegawai.Nama = pegawaiDto.Nama;
             pegawai.Jabatan = pegawaiDto.Jabatan;
             pegawai.NIP = pegawaiDto.NIP;
-            pegawai.TanggalMasuk = pegawaiDto.TanggalMasuk;
-            pegawai.Gaji = pegawaiDto.Gaji;
+            pegawai.TanggalMasuk = pegawaiDto.TanggalMasuk.Value;
+            pegawai.Gaji = pegawaiDto.Gaji.Value;
+            _appDbContext.SaveChanges();
+            return pegawai;
+        }
+
+        public Pegawai PartialUpdatePegawai(Guid id, PegawaiDto pegawaiParam)
+        {
+            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id);
+            if (pegawai == null) throw new Exception("Pegawai tidak ditemukan");
+            _appDbContext.Update(pegawai);
+            _appDbContext.PartialUpdate(pegawaiParam, pegawai);
             _appDbContext.SaveChanges();
             return pegawai;
         }

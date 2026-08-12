@@ -48,20 +48,27 @@ namespace Day1WebApi.Controllers
             return Ok(pegawaiDtoResult);
         }
 
-        //[HttpPut("{id}")]
-        //public IActionResult UpdatePegawai(Guid id, PegawaiDto pegawaiParam)
-        //{
-        //    var pegawai = _pegawaiService.UpdatePegawai(id, pegawaiParam);
+        [HttpPut("{id}")]
+        public IActionResult UpdatePegawai(Guid id, PegawaiDto pegawaiParam)
+        {
+            var pegawai = _pegawaiService.UpdatePegawai(id, pegawaiParam);
 
-        //    var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
-        //    return Ok(pegawaiDtoResult);
-        //}
+            var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
+            return Ok(pegawaiDtoResult);
+        }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult DeletePegawai(Guid id)
-        //{
-        //    _pegawaiService.DeletePegawai(id);
-        //    return Ok($"Hapus pegawai dengan nama berhasil");
-        //}
+        [HttpPatch("{id}")]
+        public IActionResult PartialUpdatePegawai(Guid id, PegawaiDto pegawaiDtoParam)
+        {
+            var pegawai = _pegawaiService.PartialUpdatePegawai(id, pegawaiDtoParam);
+            return Ok(pegawai);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePegawai(Guid id)
+        {
+            _pegawaiService.DeletePegawai(id);
+            return Ok($"Hapus pegawai dengan nama berhasil");
+        }
     }
 }

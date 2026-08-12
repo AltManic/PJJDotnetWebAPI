@@ -2,7 +2,7 @@
 {
     public interface IAsetService
     {
-        Tuple<List<AsetDto>, int> GetAllAset(PaginationQueryParam queryParam);
+        Tuple<List<AsetDto>, int> GetAllAset(AsetQueryParam queryParam);
         Task<AsetDto?> GetById(Guid id);
         AsetDto CreateAset(AsetParamDto asetParam);
         AsetDto UpdateAset(Guid id, AsetParamDto asetDtoParam);

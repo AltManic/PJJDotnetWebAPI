@@ -16,7 +16,7 @@ namespace Day1WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllAset([FromQuery] PaginationQueryParam queryParam)
+        public IActionResult GetAllAset([FromQuery] AsetQueryParam queryParam)
         {
             var result = _asetService.GetAllAset(queryParam);
             return Ok(new

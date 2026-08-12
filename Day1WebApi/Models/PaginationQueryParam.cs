@@ -4,6 +4,6 @@
     {
         public int Limit { get; set; } = 5;
         public int Offset { get; set; } = 0;
-        public string? KategoriName { get; set; }
+        public bool IncludeDeleted { get; set; } = false;
     }
 }

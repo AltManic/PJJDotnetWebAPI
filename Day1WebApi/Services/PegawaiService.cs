@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Day1WebApi.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Day1WebApi.Services
 {
@@ -18,7 +19,7 @@ namespace Day1WebApi.Services
         public PaginationResponse<Pegawai> GetAllPegawai(PegawaiQueryParam pegawaiQueryParam)
         {
 
-            var pegawai = _appDbContext.Pegawai.AsQueryable();
+            var pegawai = _appDbContext.Pegawai.AsQueryable().IgnoreQueryFilters();
             if(pegawaiQueryParam.Nama != null)
             {
                 pegawai = pegawai.Where(p => p.Nama.ToLower().Contains(pegawaiQueryParam.Nama.ToLower())).AsQueryable();
@@ -72,7 +73,8 @@ namespace Day1WebApi.Services
         {
             var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id);
             if (pegawai == null) throw new Exception("Pegawai tidak ditemukan");
-            _appDbContext.Remove(pegawai);
+            pegawai.DeletedAt = DateTime.Now;
+            _appDbContext.Update(pegawai);
             _appDbContext.SaveChanges();
         }
     }

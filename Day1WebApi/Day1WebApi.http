@@ -4,3 +4,12 @@ GET {{Day1WebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{Day1WebApi_HostAddress}}/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "example@example.com",
+  "password": "Password123!"
+}

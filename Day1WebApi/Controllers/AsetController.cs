@@ -16,7 +16,7 @@ namespace Day1WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllAset([FromQuery] PaginationQueryParam queryParam)
+        public IActionResult GetAllAset([FromQuery] AsetQueryParam queryParam)
         {
             var result = _asetService.GetAllAset(queryParam);
             return Ok(new
@@ -61,7 +61,7 @@ namespace Day1WebApi.Controllers
         {
             try
             {
-                return Ok(_asetService.UbahPartial(id, asetParam));
+                return Ok(_asetService.UpdateAset(id, asetParam));
             }
             catch (Exception ex)
             {

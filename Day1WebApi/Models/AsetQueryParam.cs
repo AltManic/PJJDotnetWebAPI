@@ -1,6 +1,6 @@
 ﻿namespace Day1WebApi.Models
 {
-    public class AsetQueryParam
+    public class AsetQueryParam : PaginationQueryParam
     {
         /// <summary>
         /// Filter berdasarkan nama aset
@@ -10,6 +10,6 @@
         /// <summary>
         /// Filter berdasarkan tahun perolehan
         /// </summary>
-        public int? Tahun { get; set; }
+        public int? Tahun { get; set; }        
     }
 }

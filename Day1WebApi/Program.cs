@@ -11,26 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSqlite<AppDbContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddSwaggerGen(config =>
-{
-    var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-    var xmlFile = $"{assemblyName}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    if (File.Exists(xmlPath))
-    {
-        config.IncludeXmlComments(xmlPath);
-    }
 
-});
 
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<KategoriService>();
-builder.Services.AddScoped<IAsetService, AsetService>();
-builder.Services.AddScoped<PegawaiService>();
+builder.Services.RegisterDIService()
+    .RegisterSwagger();
 
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
@@ -38,9 +27,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.MapOpenApi();
+    app.AddDevAppDependency();
 }
 
 

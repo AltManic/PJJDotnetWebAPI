@@ -40,13 +40,17 @@ namespace Day1WebApi.Services
             _dbContext.SaveChanges();
         }
 
-        public Tuple<List<AsetDto>, int> GetAllAset(PaginationQueryParam queryParam)
+        public Tuple<List<AsetDto>, int> GetAllAset(AsetQueryParam queryParam)
         {
             var asetQuery = _dbContext.Aset
                 .Include(x => x.Kategori).AsQueryable();              ;
-            if(queryParam.KategoriName != null)
+            if(queryParam.Kategori != null)
             {
-                asetQuery = asetQuery.Where(x => x.Kategori.Nama.Contains(queryParam.KategoriName));
+                asetQuery = asetQuery.Where(x => x.Kategori.Nama.Contains(queryParam.Kategori));
+            }
+            if(queryParam.IncludeDeleted == true)
+            {
+                asetQuery = asetQuery.IgnoreQueryFilters();
             }
             asetQuery= asetQuery.Where(x => x.Nilai > 100000);
             int count = asetQuery.Count();
@@ -110,7 +114,8 @@ namespace Day1WebApi.Services
                 throw new Exception("Aset tidak ditemukan");
             }
             var kategori = _dbContext.Kategori.Find(asetDtoParam.KategoriId);
-            if(kategori == null)
+
+            if (kategori == null)
             {
                 throw new Exception("Kategori tidak ditemukan");
             }
@@ -118,6 +123,10 @@ namespace Day1WebApi.Services
             aset.KategoriId = asetDtoParam.KategoriId.Value;
             aset.TanggalPerolehan = asetDtoParam.TanggalPerolehan.Value;
             aset.Nilai = asetDtoParam.Nilai.Value;
+
+            var kategoriData = _dbContext.Kategori.AsNoTracking().FirstOrDefault();
+
+
             _dbContext.Update(aset);
             _dbContext.SaveChanges();
             return _mapper.Map<AsetDto>(aset);

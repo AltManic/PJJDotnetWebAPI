@@ -9,7 +9,6 @@ namespace Day1WebApi.Services
         private readonly AppDbContext _appDbContext;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
         public PegawaiService(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             _appDbContext = appDbContext;
@@ -19,10 +18,11 @@ namespace Day1WebApi.Services
 
         public PaginationResponse<Pegawai> GetAllPegawai(PegawaiQueryParam pegawaiQueryParam)
         {
-            var pegawai = _appDbContext.Pegawai.AsNoTracking().AsQueryable();
-            if (pegawaiQueryParam.Nama != null)
+
+            var pegawai = _appDbContext.Pegawai.AsQueryable().IgnoreQueryFilters();
+            if(pegawaiQueryParam.Nama != null)
             {
-                pegawai = pegawai.Where(p => p.Nama.ToLower().Contains(pegawaiQueryParam.Nama.ToLower()));
+                pegawai = pegawai.Where(p => p.Nama.ToLower().Contains(pegawaiQueryParam.Nama.ToLower())).AsQueryable();
             }
             var count = pegawai.Count();
             var data = pegawai.Skip(pegawaiQueryParam.Offset).Take(pegawaiQueryParam.Limit).ToList();
@@ -35,13 +35,13 @@ namespace Day1WebApi.Services
 
         public Pegawai GetById(Guid id)
         {
-            return _appDbContext.Pegawai.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            return _appDbContext.Pegawai.FirstOrDefault(p => p.Id == id);
         }
 
         public Pegawai CreatePegawai(PegawaiDto pegawaiParam)
         {
             var pegawai = _mapper.Map<Pegawai>(pegawaiParam);
-            _appDbContext.Pegawai.Add(pegawai);
+            _appDbContext.Add(pegawai);
             _appDbContext.SaveChanges();
             return pegawai;
         }
@@ -71,9 +71,10 @@ namespace Day1WebApi.Services
 
         public void DeletePegawai(Guid id)
         {
-            var pegawai = _appDbContext.Pegawai.Find(id);
+            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id);
             if (pegawai == null) throw new Exception("Pegawai tidak ditemukan");
-            _appDbContext.Pegawai.Remove(pegawai);
+            pegawai.DeletedAt = DateTime.Now;
+            _appDbContext.Update(pegawai);
             _appDbContext.SaveChanges();
         }
     }

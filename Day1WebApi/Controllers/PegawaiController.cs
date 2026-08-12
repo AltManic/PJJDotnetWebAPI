@@ -43,10 +43,17 @@ namespace Day1WebApi.Controllers
         [HttpPost]
         public IActionResult CreatePegawai(PegawaiDto pegawaiParam)
         {
-            var pegawai = _pegawaiService.CreatePegawai(pegawaiParam);
+            try
+            {
+                var pegawai = _pegawaiService.CreatePegawai(pegawaiParam);
 
-            var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
-            return Ok(pegawaiDtoResult);
+                var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
+                return Ok(pegawaiDtoResult);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
+            }
         }
 
         [HttpPut("{id}")]

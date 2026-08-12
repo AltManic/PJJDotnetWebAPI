@@ -1,4 +1,5 @@
 using Day1WebApi.Data;
+using Day1WebApi.ExceptionHandlers;
 using Day1WebApi.Filters;
 using Day1WebApi.Interfaces;
 using Day1WebApi.Middlewares;
@@ -26,6 +27,8 @@ builder.Services.RegisterDIService()
     .RegisterSwagger();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddExceptionHandler<GlobalExceptionHandlers>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +43,7 @@ app.MapGet("/health", () => Results.Ok("Healthy"));
 
 app.UseAuthorization();
 app.UseMiddleware<SampleMiddleware>();
+app.UseExceptionHandler("/error");
 
 app.MapControllers();
 

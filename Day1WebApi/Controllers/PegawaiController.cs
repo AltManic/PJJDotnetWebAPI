@@ -34,11 +34,10 @@ namespace Day1WebApi.Controllers
             var pegawai = _pegawaiService.GetById(id);
             if (pegawai == null)
             {
-                return NotFound(new ApiResponse<object?>(404, "Data not found", null));
+                return NotFound();
             }
             var pegawaiDto = _mapper.Map<PegawaiDto>(pegawai);
-            var response = new ApiResponse<PegawaiDto>(200, "Request successful", pegawaiDto);
-            return Ok(response);
+            return Ok(pegawaiDto);
         }
 
         [HttpPost]

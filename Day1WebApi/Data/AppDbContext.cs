@@ -39,7 +39,7 @@ namespace Day1WebApi.Data
         {
             foreach(var entry in ChangeTracker.Entries())
             {
-                if(entry.Entity is BaseModel model && entry.State == EntityState.Deleted)
+                if(entry.Entity is BaseModel model)
                 {       
                     if(entry.State == EntityState.Deleted)
                     {
@@ -79,7 +79,6 @@ namespace Day1WebApi.Data
                 var sourceValue = reflection.GetProperty(property.Metadata.Name)?.GetValue(source);
                 if(property.Metadata.Name == "UpdatedAt")
                 {
-                    property.CurrentValue = DateTime.Now;
                     property.IsModified = true;
                     continue;
                 }

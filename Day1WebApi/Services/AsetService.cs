@@ -114,7 +114,8 @@ namespace Day1WebApi.Services
                 throw new Exception("Aset tidak ditemukan");
             }
             var kategori = _dbContext.Kategori.Find(asetDtoParam.KategoriId);
-            if(kategori == null)
+
+            if (kategori == null)
             {
                 throw new Exception("Kategori tidak ditemukan");
             }
@@ -122,6 +123,10 @@ namespace Day1WebApi.Services
             aset.KategoriId = asetDtoParam.KategoriId.Value;
             aset.TanggalPerolehan = asetDtoParam.TanggalPerolehan.Value;
             aset.Nilai = asetDtoParam.Nilai.Value;
+
+            var kategoriData = _dbContext.Kategori.AsNoTracking().FirstOrDefault();
+
+
             _dbContext.Update(aset);
             _dbContext.SaveChanges();
             return _mapper.Map<AsetDto>(aset);

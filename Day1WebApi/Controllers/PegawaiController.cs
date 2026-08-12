@@ -23,13 +23,11 @@ namespace Day1WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll([FromQuery] PegawaiQueryParam pegawaiQueryParam)
         {
-            var tempListPegawai = _pegawaiService.GetAllPegawai();
-            var pegawaiDtos = _mapper.Map<List<PegawaiDto>>(tempListPegawai);
-            return Ok(pegawaiDtos);
+            return Ok(_pegawaiService.GetAllPegawai(pegawaiQueryParam));
         }
-        
+
         [HttpGet("{id}")]
-        
+
         public IActionResult GetById(Guid id)
         {
             var pegawai = _pegawaiService.GetById(id);
@@ -45,7 +43,7 @@ namespace Day1WebApi.Controllers
         public IActionResult CreatePegawai(PegawaiDto pegawaiParam)
         {
             var pegawai = _pegawaiService.CreatePegawai(pegawaiParam);
-            
+
             var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
             return Ok(pegawaiDtoResult);
         }
@@ -54,9 +52,16 @@ namespace Day1WebApi.Controllers
         public IActionResult UpdatePegawai(Guid id, PegawaiDto pegawaiParam)
         {
             var pegawai = _pegawaiService.UpdatePegawai(id, pegawaiParam);
-          
+
             var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
             return Ok(pegawaiDtoResult);
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult PartialUpdatePegawai(Guid id, PegawaiDto pegawaiDtoParam)
+        {
+            var pegawai = _pegawaiService.PartialUpdatePegawai(id, pegawaiDtoParam);
+            return Ok(pegawai);
         }
 
         [HttpDelete("{id}")]

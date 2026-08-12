@@ -61,10 +61,11 @@ namespace Day1WebApi.Controllers
         {
             try
             {
-                return Ok(_asetService.UpdateAset(id, asetParam));
+                return Ok(_asetService.UbahPartial(id, asetParam));
             }
             catch (Exception ex)
             {
+                throw;
                 return BadRequest(ex.Message);
             }
         }

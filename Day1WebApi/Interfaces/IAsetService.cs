@@ -8,5 +8,6 @@
         AsetDto UpdateAset(Guid id, AsetParamDto asetDtoParam);
         void DeleteAset(Guid id);
         List<AsetGroupByKategori> GetAsetGroupingByKategori();
+        Aset UbahPartial(Guid id, AsetParamDto asetParamDto);
     }
 }

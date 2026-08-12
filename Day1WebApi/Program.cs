@@ -22,6 +22,8 @@ builder.Services.AddSwaggerGen(config =>
     }
 
 });
+
+
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -30,6 +32,7 @@ builder.Services.AddScoped<KategoriService>();
 builder.Services.AddScoped<IAsetService, AsetService>();
 builder.Services.AddScoped<PegawaiService>();
 
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

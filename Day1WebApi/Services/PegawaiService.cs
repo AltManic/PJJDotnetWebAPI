@@ -8,16 +8,29 @@ namespace Day1WebApi.Services
     {
         private readonly AppDbContext _appDbContext;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PegawaiService(AppDbContext appDbContext, IMapper mapper)
+        public PegawaiService(AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             _appDbContext = appDbContext;
+            _httpContextAccessor = httpContextAccessor;
             _mapper = mapper;
         }
 
-        public List<Pegawai> GetAllPegawai()
+        public PaginationResponse<Pegawai> GetAllPegawai(PegawaiQueryParam pegawaiQueryParam)
         {
-            return _appDbContext.Pegawai.AsNoTracking().ToList();
+            var pegawai = _appDbContext.Pegawai.AsNoTracking().AsQueryable();
+            if (pegawaiQueryParam.Nama != null)
+            {
+                pegawai = pegawai.Where(p => p.Nama.ToLower().Contains(pegawaiQueryParam.Nama.ToLower()));
+            }
+            var count = pegawai.Count();
+            var data = pegawai.Skip(pegawaiQueryParam.Offset).Take(pegawaiQueryParam.Limit).ToList();
+            return new PaginationResponse<Pegawai>()
+            {
+                Total = count,
+                Data = data
+            };
         }
 
         public Pegawai GetById(Guid id)
@@ -35,14 +48,23 @@ namespace Day1WebApi.Services
 
         public Pegawai UpdatePegawai(Guid id, PegawaiDto pegawaiDto)
         {
-            var pegawai = _appDbContext.Pegawai.Find(id);
+            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id);
             if (pegawai == null) throw new Exception("Pegawai tidak ditemukan");
             pegawai.Nama = pegawaiDto.Nama;
-            pegawai.NIP = pegawaiDto.NIP;
             pegawai.Jabatan = pegawaiDto.Jabatan;
-            pegawai.Gaji = pegawaiDto.Gaji;
-            pegawai.TanggalMasuk = pegawaiDto.TanggalMasuk;
-            _appDbContext.Pegawai.Update(pegawai);
+            pegawai.NIP = pegawaiDto.NIP;
+            pegawai.TanggalMasuk = pegawaiDto.TanggalMasuk.Value;
+            pegawai.Gaji = pegawaiDto.Gaji.Value;
+            _appDbContext.SaveChanges();
+            return pegawai;
+        }
+
+        public Pegawai PartialUpdatePegawai(Guid id, PegawaiDto pegawaiParam)
+        {
+            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id);
+            if (pegawai == null) throw new Exception("Pegawai tidak ditemukan");
+            _appDbContext.Update(pegawai);
+            _appDbContext.PartialUpdate(pegawaiParam, pegawai);
             _appDbContext.SaveChanges();
             return pegawai;
         }

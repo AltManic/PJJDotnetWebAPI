@@ -1,4 +1,5 @@
 using Day1WebApi.Data;
+using Day1WebApi.Filters;
 using Day1WebApi.Interfaces;
 using Day1WebApi.Middlewares;
 using Day1WebApi.Services;
@@ -14,7 +15,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(c =>
+{
+    c.Filters.Add<WrapResponseFilter>();
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

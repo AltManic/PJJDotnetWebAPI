@@ -29,7 +29,7 @@ namespace Day1WebApi.Services
             return new PaginationResponse<Pegawai>()
             {
                 Total = count,
-                Data = data
+                Items = data
             };
         }
 

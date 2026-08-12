@@ -3,6 +3,6 @@
     public class PaginationResponse<T>
     {
         public int Total { get; set; }
-        public List<T> Data { get; set; }
+        public List<T> Items { get; set; }
     }
 }

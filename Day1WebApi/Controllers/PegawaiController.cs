@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Day1WebApi.Data;
 using Day1WebApi.Filters;
 using Day1WebApi.Services;
 using Microsoft.AspNetCore.Http;
@@ -33,10 +34,11 @@ namespace Day1WebApi.Controllers
             var pegawai = _pegawaiService.GetById(id);
             if (pegawai == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse<object?>(404, "Data not found", null));
             }
             var pegawaiDto = _mapper.Map<PegawaiDto>(pegawai);
-            return Ok(pegawaiDto);
+            var response = new ApiResponse<PegawaiDto>(200, "Request successful", pegawaiDto);
+            return Ok(response);
         }
 
         [HttpPost]

@@ -1,6 +1,44 @@
 @Day1WebApi_HostAddress = http://localhost:5198
+@AccessToken = CfDJ8HeKPGz8OG5Kq64Mty7aP7EVOzexpsJsWOUf7UPw0-pFAhaEvgVKmYrAal_jtAY_epAJoPVO_Gy8wEMsV_tS7I4Ha1-Oco5NRJiaoVBX_SA7G0CAKA-z8GBOVAb-_8g3b7cuKasopYE_GMWVQiVMvlw-2FvKJha-yoequFhMD6p6xovJ11d9UP7BbMzqOiplhR9M7dgegJ57FeEEfpInHOAk4_RHs_fujE4W__heenk5jZFwZh8aGMcRjapvaOcUVOl-ryKqMPLnoQ68adCJj_wyCBwWnLO-rb0Vv-__0221hpEWPg7amN83d2jicRyPzGVKh-pyrr9DWRTzr4g-REr0klW__H-4Vr9pb2ucrWY8l1bkClk_5KTyXjOHmjpbjuWBgzAzmVYyze3N_fEaRcVKWuKBf4O376d2Fk7Os6d0c_vBvL_WfOrYu3EQ0yQVMxHnIBj410gR8XeFOPclyLZE_SDDocBzMbQ1BCSV79WVtQkxwHmIMRpHE7qrfLX-Vkf8H0yhNbYvuO1jgMdKRZaE4yYXGRqGqPzO2ssZ9SmvRYnIMeQdBO4JIeWdJwZIYGUl7Fn_0pGoL2NR8YgsMxJkbBeHqbwroIszl-1_Exz5UtgO9eHhMl7KZaQgvIGk0p7i4fiB5nlt9_QAnF-UoVTRVK9o60CxxJ2QWRARY4VgqYeOiA-Sl6W4UXU2vDTK2UcJrhrdSNCHNHdEgJry0h4
 
 GET {{Day1WebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{Day1WebApi_HostAddress}}/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "example@example.com",
+  "password": "Password123!"
+}
+
+####
+
+GET {{Day1WebApi_HostAddress}}/api/Pegawai
+Accept: application/json
+Authorization: Bearer {{AccessToken}}
+
+####
+
+GET {{Day1WebApi_HostAddress}}/api/Pegawai/3fa85f64-5717-4562-b3fc-2c963f66afa6
+Accept: application/json
+Authorization: Bearer {{AccessToken}}
+
+####
+
+POST {{Day1WebApi_HostAddress}}/api/Pegawai
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{AccessToken}}
+
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
+  "nama": "Budi",
+  "nip": "1235",
+  "jabatan": "Pelaksana",
+  "gaji": 1000,
+  "tanggalMasuk": "2026-08-12"
+}

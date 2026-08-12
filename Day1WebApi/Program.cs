@@ -4,6 +4,7 @@ using Day1WebApi.Filters;
 using Day1WebApi.Interfaces;
 using Day1WebApi.Middlewares;
 using Day1WebApi.Services;
+using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,8 @@ builder.Services.RegisterDIService()
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddExceptionHandler<GlobalExceptionHandlers>();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();
 
@@ -46,5 +49,6 @@ app.UseMiddleware<SampleMiddleware>();
 app.UseExceptionHandler("/error");
 
 app.MapControllers();
+app.MapIdentityApi<IdentityUser>();
 
 app.Run();

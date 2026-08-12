@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
-using Day1WebApi.Data;
 using Day1WebApi.Filters;
 using Day1WebApi.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Day1WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PegawaiController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -41,6 +40,7 @@ namespace Day1WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreatePegawai(PegawaiDto pegawaiParam)
         {
             var pegawai = _pegawaiService.CreatePegawai(pegawaiParam);

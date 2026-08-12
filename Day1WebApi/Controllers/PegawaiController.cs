@@ -23,13 +23,11 @@ namespace Day1WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll([FromQuery] PegawaiQueryParam pegawaiQueryParam)
         {
-            var tempListPegawai = _pegawaiService.GetAllPegawai();
-            var pegawaiDtos = _mapper.Map<List<PegawaiDto>>(tempListPegawai);
-            return Ok(pegawaiDtos);
+            return Ok(_pegawaiService.GetAllPegawai(pegawaiQueryParam));
         }
-        
+
         [HttpGet("{id}")]
-        
+
         public IActionResult GetById(Guid id)
         {
             var pegawai = _pegawaiService.GetById(id);
@@ -45,25 +43,25 @@ namespace Day1WebApi.Controllers
         public IActionResult CreatePegawai(PegawaiDto pegawaiParam)
         {
             var pegawai = _pegawaiService.CreatePegawai(pegawaiParam);
-            
+
             var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
             return Ok(pegawaiDtoResult);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdatePegawai(Guid id, PegawaiDto pegawaiParam)
-        {
-            var pegawai = _pegawaiService.UpdatePegawai(id, pegawaiParam;
-          
-            var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
-            return Ok(pegawaiDtoResult);
-        }
+        //[HttpPut("{id}")]
+        //public IActionResult UpdatePegawai(Guid id, PegawaiDto pegawaiParam)
+        //{
+        //    var pegawai = _pegawaiService.UpdatePegawai(id, pegawaiParam);
 
-        [HttpDelete("{id}")]
-        public IActionResult DeletePegawai(Guid id)
-        {
-            _pegawaiService.DeletePegawai(id);
-            return Ok($"Hapus pegawai dengan nama berhasil");
-        }
+        //    var pegawaiDtoResult = _mapper.Map<PegawaiDto>(pegawai);
+        //    return Ok(pegawaiDtoResult);
+        //}
+
+        //[HttpDelete("{id}")]
+        //public IActionResult DeletePegawai(Guid id)
+        //{
+        //    _pegawaiService.DeletePegawai(id);
+        //    return Ok($"Hapus pegawai dengan nama berhasil");
+        //}
     }
 }

@@ -27,5 +27,24 @@ namespace Day1WebApi.Data
             });
             base.OnModelCreating(modelBuilder);
         }
+
+
+        public void PartialUpdate<TParamEntity, TDestEntity>(TParamEntity source, TDestEntity entity)
+        {
+            var reflection = typeof(TParamEntity);
+
+            foreach (var property in Entry(entity).Properties)
+            {
+                var sourceValue = reflection.GetProperty(property.Metadata.Name)?.GetValue(source);
+                if (sourceValue == null)
+                {
+                    property.IsModified = false;
+                }
+                else
+                {
+                    property.CurrentValue = sourceValue;
+                }
+            }
+        }
     }
 }

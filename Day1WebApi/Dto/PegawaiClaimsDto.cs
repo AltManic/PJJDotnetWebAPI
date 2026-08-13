@@ -8,5 +8,6 @@
         public string? NIP { get; set; }
         public string? Jabatan { get; set; }
         public string? TanggalMasuk { get; set; }
+        public List<string>? Roles { get; set; }
     }
 }

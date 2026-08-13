@@ -1,12 +1,18 @@
+using System.Security.Claims;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace Day1WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class AccountController(
     RoleManager<IdentityRole> _roleManager,
-    UserManager<IdentityUser> _userManager) : ControllerBase
+    UserManager<Pegawai> _userManager,
+    IMapper _mapper,
+    ILogger<AccountController> _logger) : ControllerBase
 {
     [HttpPost("role")]
     public async Task<ActionResult<IdentityRole>> CreateRole(CreateRoleDto createRoleDto)
@@ -42,5 +48,41 @@ public class AccountController(
         }
 
         return Ok();
+    }
+
+    [HttpPost("register-pegawai")]
+    public async Task<ActionResult<Pegawai>> RegisterPegawai(RegisterPegawaiDto registerPegawaiDto)
+    {
+        var user = _mapper.Map<Pegawai>(registerPegawaiDto);
+
+        var result = await _userManager.CreateAsync(user, registerPegawaiDto.Password);
+
+        if (!result.Succeeded)
+        {
+            return BadRequest(result.Errors);
+        }
+
+        return user;
+    }
+
+    [HttpGet("manage/info-pegawai")]
+    public async Task<ActionResult<PegawaiClaimsDto>> GetInfoPegawai()
+    {
+        for (int i = 0; i < User.Claims.Count(); i++)
+        {
+            _logger.LogInformation($"Claim {i}: {User.Claims.ElementAt(i).Type} - {User.Claims.ElementAt(i).Value}");
+        }
+        
+        var pegawai = new PegawaiClaimsDto
+        {
+            Id = User.FindFirstValue(ClaimTypes.NameIdentifier),
+            Email = User.FindFirstValue(ClaimTypes.Email),
+            Nama = User.FindFirstValue("nama"),
+            NIP = User.FindFirstValue("nip"),
+            Jabatan = User.FindFirstValue("jabatan"),
+            TanggalMasuk = User.FindFirstValue("tanggal_masuk")
+        };
+
+        return pegawai;
     }
 }

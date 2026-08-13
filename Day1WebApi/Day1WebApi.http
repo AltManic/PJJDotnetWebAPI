@@ -1,5 +1,5 @@
 @Day1WebApi_HostAddress = http://localhost:5198
-@AccessToken = CfDJ8CdmO7BRiEhNhpJEDHdQK8Xeuo4CFaPxOiEmu-iLc75VfT9ocWvTdyRjSBZOMBPX6Fjyy0SWgOxRaaeRBdTvFhiUi-VAD0G4Cr_FB_K95R72vUnT_qDEtL6mz99LvAkp4i7-dsYzovg0FeVeFoUAjigyIutQWhuqGKh32dKdJkXM7V70efcN9NpX_JZxHLsy2YieM84AscN8MHBGvrSuqTN-O3IY-AHpTwpzPa7qmQSxNSAkyMFd1DUDLIWUyOF2t-EvmVZJYvVLzXgJSrOtt0O1TKchG1ZSOkP5J8ugnWhAGnP4Bc-t1pA4pUMpHoklE8ZoCgL4gMP36x7b7LweFL4aoTLd8F2mz75B3Ga-fHxOnmL5PjVew_kE8QcIyc_XC0sXNqStC4uoUIdsy3SjmCyLH-ooMkB2GjapxVT6_T71x9l-N-RY0U0LNsFIlWe3PUWUImBozxVgSNOv6axdPCwE4RM-ub34QYSGPcFN3ugswd0_coNcWRYlM-am_HVZy30NeOmxp7pp3w50vtIeBa18d8_Xh_DMejtVe7Xggo8k7XsREWL2pbV-dVuG1ak6lDZrhPCZSoNf9katDPDS5NBFD36W-cW2fyvKMu89iSKl6MiFBKOTUPxGEFihHXDtwnMyxF86JV54MN-t4Aq6_sC4qqCTjwnbAUFPuXlIoWgZ-Tm_aI7wddEvFYkTaPxSHmG5uXV9HDI7XbTVcqhzYaJgFhXTsjLla1yCilzLVMXdQGrF8GIYmmUegXA3U0Is_zChvUygD6yXFWChlgt54zTzASvmAkWAXX-WWXOQ--Ek
+@AccessToken = CfDJ8CdmO7BRiEhNhpJEDHdQK8VfcYMg8ErL12c2sIYac1NgCLYG_dd1d3CXJCULeVi3UJPf7737qwnbCfT07Of8Au8HKfX1BhXY2wVTGoqeA5zdryNUO_rZYRIny076ZzXBl4ffBRafvYOwjyqPjU-KZHPlkoGdegXJkqGN_jHTWRFOzki9zOWKUAsPKYU0C-0Oy23ABsUhg8AyyPyhQRjEzwoIT-lbhyVJ93fdOSIzgeJiJKTIe1G2etwlnQj_iMRRNihxHWt4q8E211h0ngY-K5tiYx7fuK6jlExXSEGM83Fjp_ZMicP0Wf10PIbLnQdU8veqVH1Jd28FzNmdh7GR9_aH9sGuX_-jFlW5uHthjdtKc2eoGImXtKE0Em4g6z_6rVNKmGVmQ7LbafsQxfPlGaejAlN3YiHpVzhpBiAp3eUvlL53zCR2m7DaRmnq5KsKLh5CDfAoJGeoCWzAh-6p6dgypta6RS66QI-Hapzy78jVHe129zw5f5IB4C-1cjhRTmVylwe0bp0KuejZcczGjcUF7AcN4HykeeXcj9F6WbnIVvzg9mOzkpewetv0FsLFIc2t-ebD2zOD-9XhF4UZ5AirvcUvMX_7UgEaw5ljYmkl78DRIFmt6_2ndz7EXhHqpqu-HUMpyufoES9L0CqSUYdyA0_NbJghHN3KJYeg939zDvGtz1SU5-o08PE6WGkuO7hZfbjSyUhh9KMiIQ40yuDMvFvPsTK74fh0rlWkBn8D0WRj0vUqGcXUDBJjAlxs8TR_3E9d6rk7GmuzvWplVcz5CInOhW-FR98TGWxJk4H-t9_q9sGtOW5ktR5pLEVuOA
 
 GET {{Day1WebApi_HostAddress}}/weatherforecast/
 Accept: application/json
@@ -22,7 +22,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "email": "example@example.com",
+  "email": "1236",
   "password": "Password123!"
 }
 
@@ -77,4 +77,34 @@ Content-Type: application/json
 
 GET {{Day1WebApi_HostAddress}}/manage/info
 Accept: application/json
+Authorization: Bearer {{AccessToken}}
+
+###
+
+POST {{Day1WebApi_HostAddress}}/api/Account/register-pegawai
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nama": "Budi",
+  "nip": "1234",
+  "jabatan": "Staff",
+  "gaji": 1000,
+  "tanggalMasuk": "2026-08-12",
+  "email": "budi@example.com",
+  "password": "Password123!"
+}
+
+###
+
+DELETE {{Day1WebApi_HostAddress}}/api/Pegawai/3FA85F64-5717-4562-B3FC-2C963F66AFA6
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{AccessToken}}
+
+###
+
+GET {{Day1WebApi_HostAddress}}/api/Account/manage/info-pegawai
+Accept: application/json
+Content-Type: application/json
 Authorization: Bearer {{AccessToken}}

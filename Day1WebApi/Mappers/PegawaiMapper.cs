@@ -13,6 +13,9 @@ namespace Day1WebApi.Mappers
             CreateMap<Aset, AsetDto>();
 
             CreateMap<AsetParamDto, Aset>();
+
+            CreateMap<RegisterPegawaiDto, Pegawai>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.NIP));
         }
     }
 }

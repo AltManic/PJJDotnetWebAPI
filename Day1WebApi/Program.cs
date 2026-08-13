@@ -1,3 +1,4 @@
+using Day1WebApi.ClaimsPrincipalFactory;
 using Day1WebApi.Data;
 using Day1WebApi.ExceptionHandlers;
 using Day1WebApi.Filters;
@@ -31,7 +32,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddExceptionHandler<GlobalExceptionHandlers>();
 builder.Services.AddIdentityApiEndpoints<Pegawai>()
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>();
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddClaimsPrincipalFactory<PegawaiClaimsPrincipalFactory>();
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("SupervisorOnly", policy => policy.RequireClaim("jabatan", "Supervisor"));

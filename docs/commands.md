@@ -36,3 +36,21 @@ dotnet ef database update --project Day1WebApi
 ```
 ### Menambah Registrasi Akun Pegawai
 ### 
+
+Logging
+
+Default Logger
+- Console
+- Windows event logs
+Kekurangan:
+- Hanya support beberapa output logging (console, Windows event logs)
+
+Serilog Logger:
+- Console
+- Text file
+- Sqlite
+- RDMS (SQL Server, Postgre, MySQL, MariaDB)
+- NoSQL (Elastic, MongoDb)
+
+Serilog.AspNetCore
+Serilog.Sinks.File

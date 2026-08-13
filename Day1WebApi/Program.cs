@@ -29,9 +29,12 @@ builder.Services.RegisterDIService()
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddExceptionHandler<GlobalExceptionHandlers>();
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+builder.Services.AddIdentityApiEndpoints<Pegawai>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("SupervisorOnly", policy => policy.RequireClaim("jabatan", "Supervisor"));
 
 var app = builder.Build();
 
@@ -50,6 +53,6 @@ app.UseMiddleware<SampleMiddleware>();
 app.UseExceptionHandler("/error");
 
 app.MapControllers();
-app.MapIdentityApi<IdentityUser>();
+app.MapIdentityApi<Pegawai>();
 
 app.Run();

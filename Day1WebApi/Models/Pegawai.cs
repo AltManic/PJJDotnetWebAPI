@@ -1,6 +1,6 @@
 ﻿namespace Day1WebApi.Models
 {
-    public class Pegawai : BaseModel
+    public class Pegawai : BaseIdentityModel
     {
         public string Nama { get; set; }
         public string NIP { get; set; }

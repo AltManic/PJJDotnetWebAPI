@@ -72,3 +72,9 @@ Content-Type: application/json
   "email": "example@example.com",
   "roleName": "Admin"
 }
+
+###
+
+GET {{Day1WebApi_HostAddress}}/manage/info
+Accept: application/json
+Authorization: Bearer {{AccessToken}}

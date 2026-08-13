@@ -7,10 +7,13 @@ namespace Day1WebApi.Data
 {
     public class AppDbContext : IdentityDbContext<Pegawai>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccesor) : base(options)
         {
             SavingChanges += SavingChangesEvent;
             SavedChanges += SavedChangesEvent;
+            _httpContextAccessor = httpContextAccesor;
         }
 
         public DbSet<Aset> Aset => Set<Aset>();
@@ -37,6 +40,7 @@ namespace Day1WebApi.Data
             });
             base.OnModelCreating(modelBuilder);
         }
+        
         private void SavingChangesEvent(object? sender, SavingChangesEventArgs args)
         {
             foreach(var entry in ChangeTracker.Entries())
@@ -58,6 +62,31 @@ namespace Day1WebApi.Data
                     else if (entry.State == EntityState.Modified)
                     {
                         model.UpdatedAt = DateTime.Now;
+                        // Di isi nama user yang melakukan update dari token
+                        model.UpdateBy = _httpContextAccessor.HttpContext?.User?.FindFirst("nama")?.Value ?? "Unknown";
+                    }
+                   
+                }
+
+                if (entry.Entity is BaseIdentityModel identityModel)
+                {       
+                    if(entry.State == EntityState.Deleted)
+                    {
+                        identityModel.DeletedAt = DateTime.Now;
+                        entry.State = EntityState.Modified;
+                        foreach (var property in Entry(entry.Entity).Properties)
+                        {
+                            if (property.Metadata.Name != "DeletedAt")
+                            {
+                                property.IsModified = false;
+                            }
+                        }
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        identityModel.UpdatedAt = DateTime.Now;
+                        // Di isi nama user yang melakukan update dari token
+                        identityModel.UpdateBy = _httpContextAccessor.HttpContext?.User?.FindFirst("nama")?.Value ?? "Unknown";
                     }
                    
                 }

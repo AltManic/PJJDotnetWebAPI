@@ -1,5 +1,5 @@
 @Day1WebApi_HostAddress = http://localhost:5198
-@AccessToken = CfDJ8CdmO7BRiEhNhpJEDHdQK8VfcYMg8ErL12c2sIYac1NgCLYG_dd1d3CXJCULeVi3UJPf7737qwnbCfT07Of8Au8HKfX1BhXY2wVTGoqeA5zdryNUO_rZYRIny076ZzXBl4ffBRafvYOwjyqPjU-KZHPlkoGdegXJkqGN_jHTWRFOzki9zOWKUAsPKYU0C-0Oy23ABsUhg8AyyPyhQRjEzwoIT-lbhyVJ93fdOSIzgeJiJKTIe1G2etwlnQj_iMRRNihxHWt4q8E211h0ngY-K5tiYx7fuK6jlExXSEGM83Fjp_ZMicP0Wf10PIbLnQdU8veqVH1Jd28FzNmdh7GR9_aH9sGuX_-jFlW5uHthjdtKc2eoGImXtKE0Em4g6z_6rVNKmGVmQ7LbafsQxfPlGaejAlN3YiHpVzhpBiAp3eUvlL53zCR2m7DaRmnq5KsKLh5CDfAoJGeoCWzAh-6p6dgypta6RS66QI-Hapzy78jVHe129zw5f5IB4C-1cjhRTmVylwe0bp0KuejZcczGjcUF7AcN4HykeeXcj9F6WbnIVvzg9mOzkpewetv0FsLFIc2t-ebD2zOD-9XhF4UZ5AirvcUvMX_7UgEaw5ljYmkl78DRIFmt6_2ndz7EXhHqpqu-HUMpyufoES9L0CqSUYdyA0_NbJghHN3KJYeg939zDvGtz1SU5-o08PE6WGkuO7hZfbjSyUhh9KMiIQ40yuDMvFvPsTK74fh0rlWkBn8D0WRj0vUqGcXUDBJjAlxs8TR_3E9d6rk7GmuzvWplVcz5CInOhW-FR98TGWxJk4H-t9_q9sGtOW5ktR5pLEVuOA
+@AccessToken = CfDJ8CdmO7BRiEhNhpJEDHdQK8W4FJxdaFL-AQhgYaVeKGyIeLCrIcOyOwT1i8h2F3L1q2IOK-vdwsvtKTaEPdDq_AzmPZP7HFdA_bS1cbYxphtZMzANLnXAhUyRS7P9ilq7heYdoQr6fXamxD30uPQl8QYPNWFd4rYzrfKwiD5hH4PAtui8pSwRP9bZLeXHaJvzMvnFBrothBeBUdLM8gnUczB9v708grvBpxEQyRq3jJSd3A5aEqXaNH13NrDHEQ00TTvGlKeu7NtplcQ8Lv9za_8wWUkflpOWmIww5mbtLUbUFU3_a-4Hw9gCMsm61rzSYcplBAOAfmQlHEWW_2N4M-VojMvhDi0OLdVAk0nJfNWabpd0nn8_midQVbkCYkjM31lzrcHMrLQra53Ib9lBB9_vdSgqqABZccZlNbPcCnh_LhBsDqqQVMKozGA4dG-qF5a0OksY5wHuv6VSaGXexXF9lKfuAgNCF6AVQpI4EAmqs2blOSh2HRkBmVTSmgnwHS_59mTTXBBEUPDY45Hy73UXaxP4EfA5Jsxnz7we-wCeGzLVSslPHePiCIBesqj8b7lJO2x0BVL-H5NxPUYH_if9KmAMQ6Ohcnmg1hHIiT0L5cFgpLQaQPdplS3Lgt41Ppovo-5zJH0Ej8AXMEvZfliVOfxipAPsPWlOxZewgcrnRgpHDAPmN6NInIdOrYPVl4vumdi3VbzfDOWVMdS9og6rrih7jhkHj9ODMA2LgCMfJouz6j45eHCFwoSnP6GLHwqrp0DPg5rtg-MtGe_RmUZ5l078G93v_WxIEsgpLQluXcI1cQxT1_mRsAXopnBAeQ
 
 GET {{Day1WebApi_HostAddress}}/weatherforecast/
 Accept: application/json
@@ -38,7 +38,7 @@ GET {{Day1WebApi_HostAddress}}/api/Pegawai/3fa85f64-5717-4562-b3fc-2c963f66afa6
 Accept: application/json
 Authorization: Bearer {{AccessToken}}
 
-####
+###
 
 POST {{Day1WebApi_HostAddress}}/api/Pegawai
 Accept: application/json
@@ -51,6 +51,22 @@ Authorization: Bearer {{AccessToken}}
   "nip": "1235",
   "jabatan": "Pelaksana",
   "gaji": 1000,
+  "tanggalMasuk": "2026-08-12"
+}
+
+####
+
+PUT {{Day1WebApi_HostAddress}}/api/Pegawai/3FA85F64-5717-4562-B3FC-2C963F66AFA8
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{AccessToken}}
+
+{
+  "id": "3FA85F64-5717-4562-B3FC-2C963F66AFA8",
+  "nama": "Budi",
+  "nip": "1235",
+  "jabatan": "Administrator",
+  "gaji": 3000,
   "tanggalMasuk": "2026-08-12"
 }
 
@@ -108,3 +124,14 @@ GET {{Day1WebApi_HostAddress}}/api/Account/manage/info-pegawai
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{AccessToken}}
+
+###
+
+PUT {{Day1WebApi_HostAddress}}/api/Kategori/3fa85f64-5717-4562-b3fc-2c963f66afa6
+Content-Type: application/json
+Authorization: Bearer {{AccessToken}}
+
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "nama": "string"
+}

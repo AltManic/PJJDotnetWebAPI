@@ -6,6 +6,7 @@ using Day1WebApi.Interfaces;
 using Day1WebApi.Middlewares;
 using Day1WebApi.Services;
 using Microsoft.AspNetCore.Identity;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,6 +38,11 @@ builder.Services.AddIdentityApiEndpoints<Pegawai>()
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("SupervisorOnly", policy => policy.RequireClaim("jabatan", "Supervisor"));
+
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration.ReadFrom.Configuration(context.Configuration);
+});
 
 var app = builder.Build();
 

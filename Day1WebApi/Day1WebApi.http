@@ -46,7 +46,7 @@ Content-Type: application/json
 Authorization: Bearer {{AccessToken}}
 
 {
-  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa8",
+  "id": "3FA85F64-5717-4562-B3FC-2C963F66AFA6",
   "nama": "Budi",
   "nip": "1235",
   "jabatan": "Pelaksana",
@@ -56,13 +56,13 @@ Authorization: Bearer {{AccessToken}}
 
 ####
 
-PUT {{Day1WebApi_HostAddress}}/api/Pegawai/3FA85F64-5717-4562-B3FC-2C963F66AFA8
+PUT {{Day1WebApi_HostAddress}}/api/Pegawai/3FA85F64-5717-4562-B3FC-2C963F66AFA6
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{AccessToken}}
 
 {
-  "id": "3FA85F64-5717-4562-B3FC-2C963F66AFA8",
+  "id": "3FA85F64-5717-4562-B3FC-2C963F66AFA6",
   "nama": "Budi",
   "nip": "1235",
   "jabatan": "Administrator",

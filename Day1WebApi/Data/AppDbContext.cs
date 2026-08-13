@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 
 namespace Day1WebApi.Data
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : IdentityDbContext<Pegawai>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

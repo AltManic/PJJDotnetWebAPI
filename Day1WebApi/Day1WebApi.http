@@ -1,8 +1,19 @@
 @Day1WebApi_HostAddress = http://localhost:5198
-@AccessToken = CfDJ8HeKPGz8OG5Kq64Mty7aP7EVOzexpsJsWOUf7UPw0-pFAhaEvgVKmYrAal_jtAY_epAJoPVO_Gy8wEMsV_tS7I4Ha1-Oco5NRJiaoVBX_SA7G0CAKA-z8GBOVAb-_8g3b7cuKasopYE_GMWVQiVMvlw-2FvKJha-yoequFhMD6p6xovJ11d9UP7BbMzqOiplhR9M7dgegJ57FeEEfpInHOAk4_RHs_fujE4W__heenk5jZFwZh8aGMcRjapvaOcUVOl-ryKqMPLnoQ68adCJj_wyCBwWnLO-rb0Vv-__0221hpEWPg7amN83d2jicRyPzGVKh-pyrr9DWRTzr4g-REr0klW__H-4Vr9pb2ucrWY8l1bkClk_5KTyXjOHmjpbjuWBgzAzmVYyze3N_fEaRcVKWuKBf4O376d2Fk7Os6d0c_vBvL_WfOrYu3EQ0yQVMxHnIBj410gR8XeFOPclyLZE_SDDocBzMbQ1BCSV79WVtQkxwHmIMRpHE7qrfLX-Vkf8H0yhNbYvuO1jgMdKRZaE4yYXGRqGqPzO2ssZ9SmvRYnIMeQdBO4JIeWdJwZIYGUl7Fn_0pGoL2NR8YgsMxJkbBeHqbwroIszl-1_Exz5UtgO9eHhMl7KZaQgvIGk0p7i4fiB5nlt9_QAnF-UoVTRVK9o60CxxJ2QWRARY4VgqYeOiA-Sl6W4UXU2vDTK2UcJrhrdSNCHNHdEgJry0h4
+@AccessToken = CfDJ8CdmO7BRiEhNhpJEDHdQK8Xeuo4CFaPxOiEmu-iLc75VfT9ocWvTdyRjSBZOMBPX6Fjyy0SWgOxRaaeRBdTvFhiUi-VAD0G4Cr_FB_K95R72vUnT_qDEtL6mz99LvAkp4i7-dsYzovg0FeVeFoUAjigyIutQWhuqGKh32dKdJkXM7V70efcN9NpX_JZxHLsy2YieM84AscN8MHBGvrSuqTN-O3IY-AHpTwpzPa7qmQSxNSAkyMFd1DUDLIWUyOF2t-EvmVZJYvVLzXgJSrOtt0O1TKchG1ZSOkP5J8ugnWhAGnP4Bc-t1pA4pUMpHoklE8ZoCgL4gMP36x7b7LweFL4aoTLd8F2mz75B3Ga-fHxOnmL5PjVew_kE8QcIyc_XC0sXNqStC4uoUIdsy3SjmCyLH-ooMkB2GjapxVT6_T71x9l-N-RY0U0LNsFIlWe3PUWUImBozxVgSNOv6axdPCwE4RM-ub34QYSGPcFN3ugswd0_coNcWRYlM-am_HVZy30NeOmxp7pp3w50vtIeBa18d8_Xh_DMejtVe7Xggo8k7XsREWL2pbV-dVuG1ak6lDZrhPCZSoNf9katDPDS5NBFD36W-cW2fyvKMu89iSKl6MiFBKOTUPxGEFihHXDtwnMyxF86JV54MN-t4Aq6_sC4qqCTjwnbAUFPuXlIoWgZ-Tm_aI7wddEvFYkTaPxSHmG5uXV9HDI7XbTVcqhzYaJgFhXTsjLla1yCilzLVMXdQGrF8GIYmmUegXA3U0Is_zChvUygD6yXFWChlgt54zTzASvmAkWAXX-WWXOQ--Ek
 
 GET {{Day1WebApi_HostAddress}}/weatherforecast/
 Accept: application/json
+
+###
+
+POST {{Day1WebApi_HostAddress}}/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "example@example.com",
+  "password": "Password123!"
+}
 
 ###
 
@@ -42,3 +53,28 @@ Authorization: Bearer {{AccessToken}}
   "gaji": 1000,
   "tanggalMasuk": "2026-08-12"
 }
+
+###
+
+POST {{Day1WebApi_HostAddress}}/api/Account/role
+Content-Type: application/json
+
+{
+  "roleName": "Admin"
+}
+
+###
+
+POST {{Day1WebApi_HostAddress}}/api/Account/manage/assign-role
+Content-Type: application/json
+
+{
+  "email": "example@example.com",
+  "roleName": "Admin"
+}
+
+###
+
+GET {{Day1WebApi_HostAddress}}/manage/info
+Accept: application/json
+Authorization: Bearer {{AccessToken}}

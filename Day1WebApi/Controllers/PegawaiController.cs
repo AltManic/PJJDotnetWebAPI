@@ -66,6 +66,7 @@ namespace Day1WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "SupervisorOnly")]
         public IActionResult DeletePegawai(Guid id)
         {
             _pegawaiService.DeletePegawai(id);

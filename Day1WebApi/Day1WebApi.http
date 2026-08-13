@@ -42,3 +42,12 @@ Authorization: Bearer {{AccessToken}}
   "gaji": 1000,
   "tanggalMasuk": "2026-08-12"
 }
+
+###
+
+POST {{Day1WebApi_HostAddress}}/api/Account/role
+Content-Type: application/json
+
+{
+  "roleName": "Admin"
+}

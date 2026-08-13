@@ -54,3 +54,10 @@ Serilog Logger:
 
 Serilog.AspNetCore
 Serilog.Sinks.File
+
+Log Level
+Debug
+Information
+Warning *
+Error
+Critical

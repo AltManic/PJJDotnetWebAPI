@@ -35,7 +35,7 @@ namespace Day1WebApi.Services
 
         public Pegawai GetById(Guid id)
         {
-            return _appDbContext.Pegawai.FirstOrDefault(p => p.Id == id);
+            return _appDbContext.Pegawai.FirstOrDefault(p => p.Id == id.ToString());
         }
 
         public Pegawai CreatePegawai(PegawaiDto pegawaiParam)
@@ -48,7 +48,7 @@ namespace Day1WebApi.Services
 
         public Pegawai UpdatePegawai(Guid id, PegawaiDto pegawaiDto)
         {
-            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id);
+            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id.ToLower() == id.ToString().ToLower());
             if (pegawai == null) throw new Exception("Pegawai tidak ditemukan");
             pegawai.Nama = pegawaiDto.Nama;
             pegawai.Jabatan = pegawaiDto.Jabatan;
@@ -61,7 +61,7 @@ namespace Day1WebApi.Services
 
         public Pegawai PartialUpdatePegawai(Guid id, PegawaiDto pegawaiParam)
         {
-            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id);
+            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id.ToString());
             if (pegawai == null) throw new Exception("Pegawai tidak ditemukan");
             _appDbContext.Update(pegawai);
             _appDbContext.PartialUpdate(pegawaiParam, pegawai);
@@ -71,7 +71,7 @@ namespace Day1WebApi.Services
 
         public void DeletePegawai(Guid id)
         {
-            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id);
+            var pegawai = _appDbContext.Pegawai.FirstOrDefault(x => x.Id == id.ToString());
             if (pegawai == null) throw new Exception("Pegawai tidak ditemukan");
             pegawai.DeletedAt = DateTime.Now;
             _appDbContext.Update(pegawai);

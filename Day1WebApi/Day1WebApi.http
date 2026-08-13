@@ -22,7 +22,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "email": "example@example.com",
+  "email": "1236",
   "password": "Password123!"
 }
 
@@ -78,3 +78,20 @@ Content-Type: application/json
 GET {{Day1WebApi_HostAddress}}/manage/info
 Accept: application/json
 Authorization: Bearer {{AccessToken}}
+
+###
+
+POST {{Day1WebApi_HostAddress}}/api/Account/register-pegawai
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa9",
+  "nama": "Andi",
+  "nip": "1236",
+  "jabatan": "Supervisor",
+  "gaji": 1000,
+  "tanggalMasuk": "2026-08-12",
+  "email": "andi@example.com",
+  "password": "Password123!"
+}

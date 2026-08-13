@@ -24,7 +24,7 @@ public class WrapResponseFilter : IAsyncResultFilter
             }
             else if (statusCode >= 400)
             {
-                var response = new ApiResponse<object?>(statusCode, "Request failed", null);
+                var response = new ApiResponse<object?>(statusCode, "Request failed", value);
                 objectResult.Value = response;
             }
         }

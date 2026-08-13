@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 
 namespace Day1WebApi.Controllers;
@@ -6,7 +7,8 @@ namespace Day1WebApi.Controllers;
 [Route("api/[controller]")]
 public class AccountController(
     RoleManager<IdentityRole> _roleManager,
-    UserManager<IdentityUser> _userManager) : ControllerBase
+    UserManager<Pegawai> _userManager,
+    IMapper _mapper) : ControllerBase
 {
     [HttpPost("role")]
     public async Task<ActionResult<IdentityRole>> CreateRole(CreateRoleDto createRoleDto)
@@ -42,5 +44,20 @@ public class AccountController(
         }
 
         return Ok();
+    }
+
+    [HttpPost("register-pegawai")]
+    public async Task<ActionResult<Pegawai>> RegisterPegawai(RegisterPegawaiDto registerPegawaiDto)
+    {
+        var user = _mapper.Map<Pegawai>(registerPegawaiDto);
+
+        var result = await _userManager.CreateAsync(user, registerPegawaiDto.Password);
+
+        if (!result.Succeeded)
+        {
+            return BadRequest(result.Errors);
+        }
+
+        return user;
     }
 }

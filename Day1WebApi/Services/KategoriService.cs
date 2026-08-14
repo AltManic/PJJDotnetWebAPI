@@ -17,7 +17,7 @@ namespace Day1WebApi.Services
 
         public List<Kategori> GetAllKategori()
         {
-            return _appDbContext.Kategori.AsNoTracking().ToList();
+            return _appDbContext.Kategori.AsNoTracking().Where(k => k.DeletedAt == null).ToList();
         }
 
         public Kategori? GetKategoriById(Guid id)

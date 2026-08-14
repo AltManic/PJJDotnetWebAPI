@@ -49,6 +49,16 @@ builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration);
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -67,5 +77,7 @@ app.UseExceptionHandler("/error");
 
 app.MapControllers();
 app.MapIdentityApi<Pegawai>();
+
+app.UseCors("AllowAll");
 
 app.Run();

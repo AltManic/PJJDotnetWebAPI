@@ -7,7 +7,6 @@ namespace Day1WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
 public class AccountController(
     RoleManager<IdentityRole> _roleManager,
     UserManager<Pegawai> _userManager,
@@ -51,6 +50,7 @@ public class AccountController(
     }
 
     [HttpPost("register-pegawai")]
+    [AllowAnonymous]
     public async Task<ActionResult<Pegawai>> RegisterPegawai(RegisterPegawaiDto registerPegawaiDto)
     {
         var user = _mapper.Map<Pegawai>(registerPegawaiDto);

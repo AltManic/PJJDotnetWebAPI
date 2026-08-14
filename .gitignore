@@ -14,3 +14,7 @@
 /Day1WebApi/Day1WebApi.db-wal
 /release
 /Day1WebApi/logs
+/publish
+/Day1WebApi/Day1WebApi-release.db
+/Day1WebApi/logs
+/Day1WebApi/logs-release

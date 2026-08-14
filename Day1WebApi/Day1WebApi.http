@@ -1,4 +1,5 @@
 @Day1WebApi_HostAddress = http://localhost:5198
+# @Day1WebApi_HostAddress = http://localhost:5000
 @AccessToken = CfDJ8CdmO7BRiEhNhpJEDHdQK8UJkmg8kn61DMFSebS2Y9xXB3MGtP5qbl_l_pxB46DT6MvuJ1s4OnSpIZrkuHsYl49Yv1ucbOd2emm09WQVQNMW9dT_N1WHG3tW5UPEfEiFCI40-QqkUhpPtwl4hp3Rihl4mtuBJb9FlMhT1FDjnlqXKnc2RoEnf-cGYw0xXYnDRmUVfXk2uUEW_C8wTFBa5wtd7o-t0nqz0zjAGfXGl66e3RZQv3NfHc3xs7i6NlivX9s55PO3R4Nz2uiK-MHG42loc_CiLQHcyYezgQBqVYUpEjqx3-PFsuqJVxSd-cddNrTerWnfP_nq69hh7_beMlOKByGwPcmxN0rDcU-56opHYx5erfpHB9aPPo0ox0gMn8NWcoIoYJmttS5h8MEb6EtsbewKV_7axSGaRISE5kGeCThYeAfulCPjO62rfoj1eNuv7onKG8DM6QlV_KIP8B8lnesmcUlFgA05DhagDp3SdRhKyt9GYwzZeQ5PETG2bUZb1AEY-Me9dX9FCfw8zFgCeWYCPtCn9AN_O9iRQBk4uLel0hfnEf1x-z_GfywqwUj6pqVKegw89h303d3wHCQw4JMW53D0s878E_Lwt31WryA5J8yGGO9hWbubd78-YKCDeKQlAl_LwmvQnBeZSVj4nh0fn9SCjotE1QNouXY37hbrAKob38XCJOVwoiStFhIycPFMtJCqueOMEyoT24gcUNbDSOzAVxIVfHxm9Ima2OS-xyKyL1l3veZrxNzAyIBGQOVl3NQVEBRi6caCZ8YcBWllJ45WLwtKn17T-3p02jpXNQf0UaYTQoVUjtbQB7rpY7cTjT1arxFV8fKU4SJOD1Lkce5weHvZj53syfepzox_-y7biQ5luDJ4kamcWnQw--nbRrozjmwXFw4QiJqOgsx0gnSEtlcNdSQyof1_
 
 GET {{Day1WebApi_HostAddress}}/weatherforecast/
@@ -137,3 +138,9 @@ Authorization: Bearer {{AccessToken}}
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "nama": "string"
 }
+
+###
+
+GET {{Day1WebApi_HostAddress}}/api/Aset
+Accept: application/json
+Content-Type: application/json

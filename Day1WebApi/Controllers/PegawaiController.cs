@@ -7,7 +7,6 @@ namespace Day1WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class PegawaiController : ControllerBase
     {
         private readonly IMapper _mapper;

@@ -19,6 +19,13 @@ public class PegawaiClaimsPrincipalFactory(UserManager<Pegawai> userManager,
         identity?.AddClaim(new Claim("jabatan", user.Jabatan));
         identity?.AddClaim(new Claim("tanggal_masuk", user.TanggalMasuk.ToString("yyyy-MM-dd")));
 
+        var roles = await UserManager.GetRolesAsync(user);
+
+        foreach (var role in roles)
+        {
+            identity?.AddClaim(new Claim(ClaimTypes.Role, role));
+        }
+
         return principal;
     }
 }

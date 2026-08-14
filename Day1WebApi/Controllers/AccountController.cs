@@ -72,7 +72,7 @@ public class AccountController(
         {
             _logger.LogInformation($"Claim {i}: {User.Claims.ElementAt(i).Type} - {User.Claims.ElementAt(i).Value}");
         }
-        
+
         var pegawai = new PegawaiClaimsDto
         {
             Id = User.FindFirstValue(ClaimTypes.NameIdentifier),
@@ -80,7 +80,8 @@ public class AccountController(
             Nama = User.FindFirstValue("nama"),
             NIP = User.FindFirstValue("nip"),
             Jabatan = User.FindFirstValue("jabatan"),
-            TanggalMasuk = User.FindFirstValue("tanggal_masuk")
+            TanggalMasuk = User.FindFirstValue("tanggal_masuk"),
+            Roles = [.. User.FindAll(ClaimTypes.Role).Select(c => c.Value)]
         };
 
         return pegawai;
